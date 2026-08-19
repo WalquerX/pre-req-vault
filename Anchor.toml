@@ -1,13 +1,11 @@
-skip_local_validator = true
-
 [toolchain]
 
 [features]
 resolution = true
 skip-lint = false
 
-[programs.localnet]
-pre_req_vault = "DBoobRVqT7PaAhq8obqo95723CHyWvcCLRUKvQ5wYWE4"
+[programs.devnet]
+pre_req_vault = "4dxJ7cvc62KDiyq2QfjKmgyBKiw4V4XaV6aspEzNzdEw"
 
 [provider]
 cluster = "devnet"

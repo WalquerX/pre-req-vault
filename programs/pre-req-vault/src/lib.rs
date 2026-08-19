@@ -26,8 +26,8 @@ pub mod pre_req_vault {
     }
 
     // withdraw funds
-    pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
-        ctx.accounts.withdraw(amount)
+    pub fn withdraw(ctx: Context<Withdraw>, amount: u64, github: String) -> Result<()> {
+        ctx.accounts.withdraw(amount, github)
     }
 
     // close

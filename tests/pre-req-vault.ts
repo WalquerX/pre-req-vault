@@ -46,13 +46,13 @@ describe("pre-req-vault", () => {
     program.programId,
   );
 
-  //   before(async () => {
-  //     const sig = await provider.connection.requestAirdrop(
-  //       user,
-  //       10 * LAMPORTS_PER_SOL,
-  //     );
-  //     await confirmTx(sig);
-  //   });
+    // before(async () => {
+    //   const sig = await provider.connection.requestAirdrop(
+    //     user,
+    //     10 * LAMPORTS_PER_SOL,
+    //   );
+    //   await confirmTx(sig);
+    // });
 
   it("Initialize the vault", async () => {
     const tx = await program.methods
@@ -113,7 +113,7 @@ describe("pre-req-vault", () => {
     )[0];
 
     const tx = await program.methods
-      .withdraw(new BN(withdrawAmount))
+      .withdraw(new BN(withdrawAmount), "walquerx")
       .accountsStrict({
         user: user,
         vaultState: vaultStatePda,
