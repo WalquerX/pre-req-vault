@@ -41,6 +41,8 @@ pub struct Withdraw<'info> {
 }
 
 impl<'info> Withdraw<'info> {
+
+    // Moving funds from vault into user account.
     pub fn withdraw(&mut self, amount: u64) -> Result<()> {
         let cpi_accounts = Transfer {
             from: self.vault.to_account_info(),
@@ -55,6 +57,7 @@ impl<'info> Withdraw<'info> {
 
         let signer_seeds = &[&seeds[..]];
 
+        // Why new_with_signer instead of just new?
         let cpi_ctx = CpiContext::new_with_signer(System::id(), cpi_accounts, signer_seeds);
 
         transfer(cpi_ctx, amount)?;

@@ -4,6 +4,7 @@ use anchor_lang::{
     system_program::{transfer, Transfer},
 };
 
+// accounts already created, then we only identified then as mut or not
 #[derive(Accounts)]
 pub struct Deposit<'info> {
     #[account(mut)]
@@ -26,6 +27,8 @@ pub struct Deposit<'info> {
 }
 
 impl<'info> Deposit<'info> {
+
+    // Moving funds from the user to the vault
     pub fn deposit(&mut self, amount: u64) -> Result<()> {
         let cpi_accounts = Transfer {
             from: self.user.to_account_info(),
