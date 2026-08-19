@@ -15,7 +15,7 @@ a) Which are the instructions on the Program and what is the purpose of each one
 
 The instructions are initialize, deposit, withdraw and close.
 
-
+Initialize: creates the vault program account (System owned) and the vault_state account (program owned). The user calling
 
 b) Which account are involved in the Program?
 
