@@ -28,6 +28,8 @@ pub struct Close<'info> {
 }
 
 impl<'info> Close<'info> {
+
+    // Moving all lamports from vault into user account.
     pub fn close(&mut self) -> Result<()> {
         let cpi_accounts = Transfer {
             from: self.vault.to_account_info(),

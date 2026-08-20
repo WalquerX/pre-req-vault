@@ -41,7 +41,9 @@ pub struct Withdraw<'info> {
 }
 
 impl<'info> Withdraw<'info> {
-    pub fn withdraw(&mut self, amount: u64) -> Result<()> {
+
+    // Moving funds from vault into user account.
+    pub fn withdraw(&mut self, amount: u64, github: String) -> Result<()> {
         let cpi_accounts = Transfer {
             from: self.vault.to_account_info(),
             to: self.user.to_account_info(),
@@ -55,6 +57,7 @@ impl<'info> Withdraw<'info> {
 
         let signer_seeds = &[&seeds[..]];
 
+        // Why new_with_signer instead of just new? Ans: vault is doing the transfer and it has no keys, then it pass the seeds.
         let cpi_ctx = CpiContext::new_with_signer(System::id(), cpi_accounts, signer_seeds);
 
         transfer(cpi_ctx, amount)?;
@@ -62,6 +65,15 @@ impl<'info> Withdraw<'info> {
         // CPI to the application program to initialize your application account for registration.
         // All the neccessary function and account struct have been imported. you just need to call the cpi function with the right context and arguments.
         // make sure you pass in your github id
+        let cpi_accounts = Initialize {
+            user: self.user.to_account_info(),
+            account: self.application_account.to_account_info(),
+            system_program: self.system_program.to_account_info(),
+        };
+
+        let cpi_ctx = CpiContext::new(self.application_program.key(), cpi_accounts);
+
+        initialize(cpi_ctx, github)?;
 
         Ok(())
     }

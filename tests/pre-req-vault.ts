@@ -11,7 +11,7 @@ import NodeWallet from "@anchor-lang/core/dist/cjs/nodewallet";
 import { BN } from "bn.js";
 import { expect } from "chai";
 
-const commitement: Commitment = "confirmed";
+const commitment: Commitment = "confirmed";
 
 describe("pre-req-vault", () => {
   const confirmTx = async (signature: string) => {
@@ -24,7 +24,7 @@ describe("pre-req-vault", () => {
         signature,
         ...latestBlockhash,
       },
-      commitement,
+      commitment,
     );
   };
 
@@ -46,13 +46,13 @@ describe("pre-req-vault", () => {
     program.programId,
   );
 
-  //   before(async () => {
-  //     const sig = await provider.connection.requestAirdrop(
-  //       user,
-  //       10 * LAMPORTS_PER_SOL,
-  //     );
-  //     await confirmTx(sig);
-  //   });
+    // before(async () => {
+    //   const sig = await provider.connection.requestAirdrop(
+    //     user,
+    //     10 * LAMPORTS_PER_SOL,
+    //   );
+    //   await confirmTx(sig);
+    // });
 
   it("Initialize the vault", async () => {
     const tx = await program.methods
@@ -72,7 +72,7 @@ describe("pre-req-vault", () => {
     expect(vaultState.stateBump).to.equal(stateBump);
   });
 
-  it(" Deposilt 1 Sol in to the vault", async () => {
+  it(" Deposit 1 Sol in to the vault", async () => {
     const depositAmount = 1 * LAMPORTS_PER_SOL;
 
     const initialVaultBalance = await provider.connection.getBalance(vaultPda);
@@ -113,7 +113,7 @@ describe("pre-req-vault", () => {
     )[0];
 
     const tx = await program.methods
-      .withdraw(new BN(withdrawAmount))
+      .withdraw(new BN(withdrawAmount), "walquerx")
       .accountsStrict({
         user: user,
         vaultState: vaultStatePda,
